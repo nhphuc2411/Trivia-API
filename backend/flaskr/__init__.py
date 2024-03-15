@@ -40,7 +40,7 @@ def create_app(test_config=None):
             })
         except:
             abort(404)
-            
+
     # Get a list of questions.
     @app.route("/questions", methods=["GET"])
     def get_list_questions():
@@ -138,7 +138,7 @@ def create_app(test_config=None):
         if "searchTerm" not in data:
             abort(400)  # Bad request
 
-        term = data["Term"]
+        term = data["searchTerm"]
 
         try:
 
