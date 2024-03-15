@@ -190,16 +190,17 @@ def create_app(test_config=None):
         data = request.get_json()
 
         # Validate required fields
-        if "category" not in data or "previous_questions" not in data:
+        if "quiz_category" not in data or "previous_questions" not in data:
             abort(400)  # Bad request
 
-        category = data["category"]
+        category = data["quiz_category"]
         previous_questions = data["previous_questions"]
 
         try:
 
             questions = Question.query.filter(
-                Question.category == category, ~Question.id.in_(previous_questions)
+                Question.category == category["id"], 
+                ~Question.id.in_(previous_questions)
             ).all()
 
             if len(questions) == 0:

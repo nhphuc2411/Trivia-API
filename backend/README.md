@@ -221,7 +221,7 @@ python test_flaskr.py
 
 
 
-`GET '/categories/${id}/questions'`
+`GET '/categories/${category_id}/questions'`
 
 
 
@@ -399,7 +399,7 @@ python test_flaskr.py
 
 
 
-`POST '/questions/search'`
+`POST '/questions/find'`
 
 
 
