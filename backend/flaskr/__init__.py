@@ -26,16 +26,21 @@ def create_app(test_config=None):
 
     # Get a list of categories.
     @app.route("/categories", methods=["GET"])
-    def get_categories():
-        categories = Category.query.all()
+     def get_categories():
 
-        if not categories:
+        try:
+            categories = Category.query.order_by(Category.id).all()
+            formated_categories = {}
+            for category in categories:
+                formated_categories[category.id] = category.type
+
+            return jsonify({
+                "success": True,
+                "categories": formated_categories,
+            })
+        except:
             abort(404)
-
-        formatted_categories = [category.format() for category in categories]
-
-        return jsonify({"success": True, "categories": formatted_categories})
-
+            
     # Get a list of questions.
     @app.route("/questions", methods=["GET"])
     def get_list_questions():
