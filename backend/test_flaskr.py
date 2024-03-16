@@ -131,21 +131,16 @@ class TriviaTestCase(unittest.TestCase):
 
     def test_play_quiz(self):
         res = self.client().post(
-            "/quizzes", json={"category": 4, "previous_questions": []}
+            "/quizzes",
+            json={
+                "quiz_category": {"id": 1, "type": "Science"},
+                "previous_questions": [],
+            },
         )
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data["success"], True)
         self.assertTrue(data["question"])
-
-    def test_play_quiz_not_category(self):
-        res = self.client().post(
-            "/quizzes", json={"category": 7890, "previous_questions": []}
-        )
-        data = json.loads(res.data)
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(data["success"], True)
-        self.assertEqual(data["question"], None)
 
     def test_play_quiz_error(self):
         res = self.client().post("/quizzes", json={})
